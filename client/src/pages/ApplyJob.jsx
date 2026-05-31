@@ -1,6 +1,7 @@
 import React,{useState,useContext,useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import {AppContext} from '../context/AppContext'
+import Loading from '../components/Loading'
 
 
 const ApplyJob = () => {
@@ -25,10 +26,12 @@ const ApplyJob = () => {
     
   },[id,jobs])
 
-  return (
+  return jobData ? (
     <div>
 
     </div>
+  ) : (
+    <Loading />
   )
 }
 
