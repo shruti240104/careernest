@@ -7,6 +7,7 @@ import { assets } from '../assets/assets'
 import kconvert from 'k-convert'
 import moment from 'moment'
 import JobCard from '../components/JobCard'
+import Footer from '../components/Footer'
 
 
 const ApplyJob = () => {
@@ -84,6 +85,7 @@ const ApplyJob = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   ) : (
     <Loading />
