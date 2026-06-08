@@ -13,7 +13,7 @@ const app = express()
 
 //connect to database
 await connectDB()
-await connectCloudinaSry()
+await connectCloudinary()
 
 //middlewares
 
