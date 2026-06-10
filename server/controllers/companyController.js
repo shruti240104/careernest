@@ -30,7 +30,7 @@ export const registerCompany = async (req,res) => {
 
     console.log("REGISTER ROUTE - latest code running")
     
-    imageUpload = await cloudinary.uploader.upload(
+    const imageUpload = await cloudinary.uploader.upload(
     imageFile.path)
     const company = await Company.create({
       name,
