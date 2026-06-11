@@ -6,10 +6,7 @@ import { v2 as cloudinary } from 'cloudinary'
 const router = express.Router()
 
 //Register a company
-router.post('/register',  (req,res,next)=>{
-    console.log("Reached register route");
-    next();
-  },upload.single("image") ,registerCompany)
+router.post('/register',upload.single("image") ,registerCompany)
 
 //company login
 router.post('/login',loginCompany)
