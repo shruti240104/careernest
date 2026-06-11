@@ -21,9 +21,10 @@ export const registerCompany = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password, salt)
-
+    
     const imageUpload = await cloudinary.uploader.upload(
-      imageFile.path)
+    imageFile.path)
+
     const company = await Company.create({
       name,
       email,
