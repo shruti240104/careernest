@@ -1,14 +1,17 @@
 import React from "react"
 import { createContext, useState, useEffect } from "react";
-import { jobsData } from '../assets/assets'
 import { toast } from "react-toastify";
 import axios from 'axios'
+import { useAuth, useUser } from "@clerk/react";
 
 export const AppContext = createContext()
 
 export const AppContextProvider = (props) => {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+  const {user} = useUser()
+  const {getToken} = useAuth()
 
   const [searchFilter, setSearchFilter] = useState({
     title: '',
@@ -24,6 +27,9 @@ export const AppContextProvider = (props) => {
   const [companyToken, setCompanyToken] = useState(null)
 
   const [companyData, setCompanyData] = useState(null)
+
+  const [userData,setUserData] = useState(null)
+  const [userApplications,setUserApplications] = useState([])
 
   //Function to fetch job data
 
@@ -71,6 +77,27 @@ export const AppContextProvider = (props) => {
     }
   }
 
+  //Function to fetch user Data
+  const fetchUserData = async()=>{
+    try{
+
+      const token = await getToken()
+
+      const {data} = await axios.get(backendUrl+'/api/users/user',
+        {headers:{Authorization:`Bearer ${token}`}})
+
+
+        if(data.success){
+          setUserData(data.user)
+        }else{
+          toast.error(data.message)
+        }
+
+    }catch(error){
+      toast.error(error.message)
+    }
+  }
+
   useEffect(() => {
     fetchJobs()
 
@@ -83,10 +110,19 @@ export const AppContextProvider = (props) => {
   }, [])
 
   useEffect(() => {
+    
     if (companyToken) {
       fetchCompanyData()
     }
   }, [companyToken])
+
+  useEffect(()=>{
+    console.log("Clerk user:", user);
+    if(user){
+      fetchUserData()
+    }
+
+  },[user])
 
   const value = {
     searchFilter,
@@ -101,7 +137,12 @@ export const AppContextProvider = (props) => {
     setCompanyToken,
     companyData,
     setCompanyData,
-    backendUrl
+    backendUrl,
+    userData,
+    setUserData,
+    userApplications,
+    setUserApplications,
+    fetchUserData
   }
   return (
     <AppContext.Provider value={value}>
