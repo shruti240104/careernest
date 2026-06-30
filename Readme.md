@@ -61,7 +61,7 @@ Watch the complete project walkthrough here:
 
 ## Manage Jobs Page
 
-![Applicants](screenshots/managejobs.png.png)
+![Applicants](screenshots/managejobs.png)
 
 ---
 
